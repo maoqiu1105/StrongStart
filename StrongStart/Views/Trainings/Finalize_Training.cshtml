@@ -1,0 +1,106 @@
+﻿@model StrongStart.Models.Training;
+@{
+    ViewData["Title"] = "Finish";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Finalize this training</h1>
+<dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.site)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.site.siteName)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.term)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.term.termName)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.startTime)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.startTime)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.endTime)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.endTime)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Date)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Date)
+    </dd>
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.part)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.part)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Capacity)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Capacity)
+    </dd>
+</dl>
+<br />
+
+<h2>Trainers in this training</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Trainer Name
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                has Kit
+            </th>
+            <th>
+                Drive Distance
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            IEnumerable<Training_Trainer> trainers = ViewData["trainerList"] as IEnumerable<Training_Trainer>;
+            foreach (var item in trainers)
+            {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.trainer.firstName) ,
+                        @Html.DisplayFor(modelItem => item.trainer.lastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.trainer.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.hasKit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.driveDistance)
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" asp-action="Finalize_trainer" asp-route-id="@item.ID">Update</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<form asp-action="Finalize_Training">
+    <input class="btn btn-primary" type="submit" value="Finialize the trainer" onclick="return confirm('Are you sure finialize this training?');"/>
+</form>
+

@@ -1,0 +1,82 @@
+﻿@model StrongStart.Models.Training_Trainer;
+@{
+    ViewData["Title"] = "Finalize_trainer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Finalize_trainer</h1>
+
+<dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.training.site)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.training.site.siteName)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.training.term)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.training.term.termName)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.training.startTime)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.training.startTime)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.training.endTime)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.training.endTime)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.training.Date)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.training.Date)
+    </dd>
+
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.training.part)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.training.part)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.training.Capacity)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.training.Capacity)
+    </dd>
+</dl>
+<br />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Finalize_trainer">
+            <div class="form-group">
+                <label asp-for="trainer.firstName" class="control-label"></label>
+                <input asp-for="trainer.firstName" class="form-control" disabled/>
+            </div>
+            <div class="form-group">
+                <label asp-for="trainer.lastName" class="control-label"></label>
+                <input asp-for="trainer.lastName" class="form-control" disabled/>
+            </div>
+            <div class="form-group">
+                <label asp-for="hasKit" class="control-label"></label>
+                <select asp-for="hasKit" class="form-control" asp-items="Html.GetEnumSelectList<YesNO>()"></select>
+                <span asp-validation-for="hasKit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="driveDistance" class="control-label"></label>
+                <input asp-for="driveDistance" class="form-control" />
+                <span asp-validation-for="driveDistance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-primary" asp-route-training_trainer_ID="@Model.ID" />
+            </div>
+        </form>
+    </div>
+</div>

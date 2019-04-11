@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "Success";
+
+
+}
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+<h1>Success! Add your trainings to your calendar!</h1>
+<script type="text/javascript" src="https://addevent.com/libs/atc/1.6.1/atc.min.js" async defer></script>
+
+<h3>Training</h3>
+<div title="Add to Calendar" class="addeventatc">
+    Add to Calendar
+    <span class="start">@HttpContextAccessor.HttpContext.Session.GetString("start")</span>
+    <span class="end">@HttpContextAccessor.HttpContext.Session.GetString("end")</span>
+    <span class="timezone">America/New_York</span>
+    <span class="title">@HttpContextAccessor.HttpContext.Session.GetString("title")</span>
+    <span class="description">Strong Start Volunteer Training: Part 1</span>
+    <span class="location">@HttpContextAccessor.HttpContext.Session.GetString("location")</span>
+</div>
+

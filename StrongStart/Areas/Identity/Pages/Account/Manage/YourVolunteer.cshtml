@@ -1,0 +1,47 @@
+﻿@page
+@model StrongStart.Areas.Identity.Pages.Account.Manage.YourVolunteerModel
+@{
+    ViewData["Title"] = "Qualified Volunteer";
+    ViewData["ActivePage"] = ManageNavPages.YourVolunteer;
+    IEnumerable<Data.ApplicationUser> users = ViewData["volunteers"] as IEnumerable<Data.ApplicationUser>;
+}
+
+<h4>@ViewData["Title"]</h4>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                Finished part 1 
+            </th>
+            <th>
+                Finished part 2
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (var item in users)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FinishPart1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FinishPart2)
+                    </td>
+                </tr>
+            }
+    </tbody>
+</table>

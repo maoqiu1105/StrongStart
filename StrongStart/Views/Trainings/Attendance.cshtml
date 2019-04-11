@@ -1,0 +1,114 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using StrongStart.Data;
+
+@{
+    ViewData["Title"] = "Attendance";
+ List<ApplicationUser> volunteerList = ViewData["volunteerList"] as List<ApplicationUser>;
+ Boolean isRPC = User.IsInRole("RPC");
+}
+<script language="javascript" type="text/javascript">
+    function printTbl() {
+        var TableToPrint = document.getElementById('myt');
+        newWin = window.open("");
+        newWin.document.write('<link rel="stylesheet" href="table.css" type="text/css" />');
+        newWin.document.write(TableToPrint.outerHTML);
+        newWin.print();
+        newWin.close();
+    }
+</script>
+
+<style>
+    .table {
+        width: 100%;
+        border: 1px solid gray;
+    }
+
+        .table td {
+            padding: 2px;
+        }
+
+
+    .table-row-1 td, .table-row-1 th {
+        background: lightgray;
+        border: 0 solid lightgray;
+    }
+
+    .table-row-2 td, .table-row-2 th, thead {
+        background: white;
+        border: 0 solid white;
+    }
+
+    .tableHeaderRow {
+        font-weight: bold;
+        border: 1px solid lightgray;
+    }
+
+    .column1 {
+        width: 15%;
+    }
+
+    .column2 {
+        width: 15%;
+    }
+</style>
+
+<style>
+    /* suppress link for printing */
+    @@media only print {
+        a {
+            display: none;
+        }
+    }
+</style>
+<a href="#" onclick="window.print(); return false;">Print</a>
+<h1>Attendance</h1>
+
+
+<div id="myt">
+    <h4>
+        Site: @Context.Session.GetString("siteName") <br />
+        Date: @Context.Session.GetString("Date")<br />
+        Time: @Context.Session.GetString("startTime") - @Context.Session.GetString("endTime")<br />
+        Part: @Context.Session.GetString("Part")<br />
+    </h4>
+    <table class="table" id="">
+        <thead>
+            <tr>
+                @if (isRPC)
+                {
+                    <th>
+                        <input type="checkbox" class="checkAll" />
+                    </th>
+                }
+                <th>
+                    Volunteer Name
+                </th>
+                <br />
+                <th>Signature</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in volunteerList)
+            {
+                <tr>
+                    @if (isRPC)
+                    {
+                        <td>
+                            <input type="checkbox" class="checkboxlistitem" id="@item.Id" />
+                        </td>
+                    }
+                    <td>
+                        @item.LastName , @item.FirstName
+                    </td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <form asp-action="ConfirmAttendance" method="post" id="frmAttendance">
+        <input id="trainingID" value="@Context.Session.GetString("trainingID")" name="trainingID" hidden/>
+        <input id="isAttendancePage" value="isAttendancePage" hidden />
+    </form>
+</div>
+

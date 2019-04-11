@@ -1,0 +1,131 @@
+﻿@model IEnumerable<StrongStart.Models.Training>
+
+@{
+    ViewData["Title"] = "Trainings";
+    Boolean isAdmin = User.IsInRole("Admin");
+    Boolean isEmployee = User.IsInRole("Employee");
+    Boolean isRPC = User.IsInRole("RPC");
+}
+
+<h1>Trainings</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-action="Index">
+    <label>Training Progress Status:    </label>
+    <select name="Training_progress_status">
+        <option value=""></option>
+        <option value="created">Created</option>
+        <option value="Approved">Approved</option>
+        <option value="Published">Published</option>
+        <option value="Finished">Finished</option>
+    </select><br />
+    <label>School Name: </label>
+    <input name="SchoolName" value="@ViewBag.SchoolName" /><br />
+    <input type="submit" value="Submit" />
+</form>
+
+<br /><br />
+<h4>@ViewBag.progress</h4>
+<p>
+    <a asp-action="exportExcel">Export to excel</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            @if ((isAdmin && ViewBag.progress == "Not Approved")|| (isRPC && ViewBag.progress == "Approved"))
+            {
+                <th>
+                    <input type="checkbox" class="checkAll" />
+                </th>
+            }
+            <th>
+                @Html.DisplayNameFor(model => model.site)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.term)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.startTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.endTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.part)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Capacity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.training_Progress_Status)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @if ((isAdmin && ViewBag.progress == "Not Approved") || (isRPC &&ViewBag.progress == "Approved"))
+                {
+                    <td>
+                        <input type="checkbox" class="checkboxlistitem" id="@item.trainingID" />
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.site.siteName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.term.termName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.startTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.endTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.part)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Capacity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.training_Progress_Status)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.trainingID">Details</a> |
+                    @if (item.training_Progress_Status == Training_Progress_Status.Published || item.training_Progress_Status == Training_Progress_Status.Finished)
+                    {
+                        <a asp-action="Attendance" asp-route-id="@item.trainingID">Attendance |</a>
+                        <a asp-action="Index" asp-controller="Training_Trainer" asp-route-id="@item.trainingID">Trainers</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+@if (isAdmin && ViewBag.progress == "Not Approved")
+{
+    <form asp-action="approve" method="post" id="frmApprove">
+        <input id="isApprovePage" value="isApprovePage" hidden/>
+    </form>
+}
+@if (isRPC && ViewBag.progress == "Approved")
+{
+    <form asp-action="publish" method="post" id="frmPublish">
+        <input id="isPublishPage" value="isPublishPage" hidden />
+</form>
+}
+

@@ -1,0 +1,88 @@
+﻿@model IEnumerable<StrongStart.Models.ViewModel.RegistrationViewModel>
+
+@{
+    ViewData["Title"] = "Register Training";
+}
+
+<h1>Register Training</h1>
+
+
+<form asp-action="Index" method="get">
+    <strong class="text-danger">
+        @ViewBag.errorPostalCode
+    </strong><br />
+    <label>School Name</label>
+    <input type="text" name="schoolName" /> <br />
+    <label>PostalCode</label>
+    <input type="text" name="postalCode" /> <br />
+    <input type="submit" value="Search" />
+</form>
+<p class="text-danger">
+    @TempData["hasRegistered"]
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Site Name
+            </th>
+            <th>
+                Start Time
+            </th>
+            <th>
+                End Time
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Part
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Capacity
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (item.Training_Progress_Status == Training_Progress_Status.Published)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.siteName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.startTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.endTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.part)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.training_Status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Capacity)
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.trainingID">Details</a>
+                    </td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>
+
+@*test
+<a href="~/htmlpage.html">gotestpage</a>*@

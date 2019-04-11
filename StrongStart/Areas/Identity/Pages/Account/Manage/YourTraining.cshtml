@@ -1,0 +1,59 @@
+﻿@page
+@model YourTraining;
+@{
+    ViewData["Title"] = "Your Upcoming Trainings";
+    ViewData["ActivePage"] = ManageNavPages.YourTraining;
+}
+
+<h4>@ViewData["Title"]</h4>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Site Name
+            </th>
+            <th>
+                Start Time
+            </th>
+            <th>
+                End Time
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                SpecInstructions
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ IEnumerable<StrongStart.Models.Training_Volunteer> Model = ViewData["training_volunteer"] as IEnumerable<StrongStart.Models.Training_Volunteer>;
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.training.site.siteName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.training.startTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.training.endTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.training.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.training.specInstructions)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Remove Training", "RemoveTraining", "Registrations", new { trainingId = item.trainingID }, new { onclick = "return confirm('Are you sure you wish to remove yourself from this training?');" })
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>

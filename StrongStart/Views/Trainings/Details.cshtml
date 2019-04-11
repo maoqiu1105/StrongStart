@@ -1,0 +1,106 @@
+﻿@model StrongStart.Models.Training
+
+@{
+    ViewData["Title"] = "Details";
+    Boolean isAdmin = User.IsInRole("Admin");
+    Boolean isEmployee = User.IsInRole("Employee");
+}
+<h1>Details</h1>
+<div>
+    <div>
+        <h4>Training</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.site)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.site.siteName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.term)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.term.termName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.startTime)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.startTime)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.endTime)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.endTime)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.permit)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.permit)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.specInstructions)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.specInstructions)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.part)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.part)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.training_Status)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.training_Status)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Capacity)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Capacity)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.training_Progress_Status)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.training_Progress_Status)
+            </dd>
+        </dl>
+
+
+        @if (isAdmin)
+        {
+            <div>
+                <a asp-action="Edit" asp-route-id="@Model.trainingID">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@Model.trainingID">Delete</a> |
+                <a asp-action="Index">Back to List</a>
+            </div>
+        }
+        else
+        {
+            @if (Model.training_Progress_Status == Training_Progress_Status.Published)
+            {
+                <a asp-action="Finalize_Training" asp-route-id="@Model.trainingID" class="btn btn-primary">Finalize this training</a>
+            }
+                <div>
+                <a asp-action="Edit" asp-route-id="@Model.trainingID">Edit</a> |
+                <a asp-action="Index">Back to List</a>
+                </div>
+        }
+
+    </div>
+</div>
+
+

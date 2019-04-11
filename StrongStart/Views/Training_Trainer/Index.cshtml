@@ -1,0 +1,70 @@
+﻿@model IEnumerable<StrongStart.Models.Training_Trainer>
+
+@{
+    ViewData["Title"] = "Trainer List";
+}
+
+
+<h1>
+    @ViewData["trainingSite"] - @ViewData["trainingDate"]
+</h1>
+
+<p>
+    <a asp-action="Create" asp-route-id="@ViewBag.trainingID" class="btn btn-primary">Add New Trainer</a>
+    <a asp-action="Index" asp-controller="Trainings" class="btn btn-primary">Finish List</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Trainer Name
+            </th>
+            <th>
+                Trainer Title
+            </th>
+            <th>
+                become trainer
+            </th>
+            <th>
+                trainee status
+            </th>
+            <th>
+                has Kit
+            </th>
+            <th>
+                distance
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.trainer.firstName) ,
+                @Html.DisplayFor(modelItem => item.trainer.lastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.trainer.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.becomeTrainer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.traineeStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.hasKit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.driveDistance)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

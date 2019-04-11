@@ -1,0 +1,99 @@
+﻿@model StrongStart.Models.Training
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<script type='text/javascript'>
+    window.onload = function () {
+        document.getElementById("Link").style.display = 'none';
+    }
+
+    function toggleDivDisplay(e) {
+        if (e == 1) {
+            document.getElementById("Link").style.display = 'block';
+        }
+        else {
+            document.getElementById("Link").style.display = 'none';
+        }
+    }
+</script>
+
+<h1>Create</h1>
+
+<h4>Training</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="siteID" class="control-label"></label>
+                <select asp-for="siteID" class="form-control" asp-items="ViewBag.siteID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="termID" class="control-label"></label>
+                <select asp-for="termID" class="form-control" asp-items="ViewBag.termID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="startTime" class="control-label"></label>
+                <input asp-for="startTime" class="form-control" />
+                <span asp-validation-for="startTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="endTime" class="control-label"></label>
+                <input asp-for="endTime" class="form-control" />
+                <span asp-validation-for="endTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="permit" class="control-label"></label>
+                <select asp-for="permit" class="form-control" asp-items="Html.GetEnumSelectList<YesNO>()"></select>
+                <span asp-validation-for="permit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="specInstructions" class="control-label"></label>
+                <input asp-for="specInstructions" class="form-control" />
+                <span asp-validation-for="specInstructions" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="part" class="control-label"></label>
+                <select asp-for="part" class="form-control" onchange="toggleDivDisplay(this.value)" asp-items="Html.GetEnumSelectList<Part>()"></select>
+                <span asp-validation-for="part" class="text-danger"></span>
+            </div>
+
+            <div class="form-group" id="Link">
+                <label asp-for="linkID" class="control-label"></label>
+                <select asp-for="linkID" class="form-control">
+                    @{
+                        IEnumerable<StrongStart.Models.Training> trainings = ViewData["linkTraining"] as IEnumerable<StrongStart.Models.Training>;
+                        foreach (var item in trainings)
+                        {
+                            <option value="@item.trainingID">@item.site.siteName - @item.Date</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Capacity" class="control-label"></label>
+                <input asp-for="Capacity" class="form-control">
+                <span asp-validation-for="Capacity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add Trainers" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

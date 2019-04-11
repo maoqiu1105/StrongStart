@@ -1,0 +1,61 @@
+﻿@model IEnumerable<StrongStart.Models.ViewModel.RegistrationViewModel>
+
+@{
+    ViewData["Title"] = "Register Training";
+}
+
+<h1>Register Training</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Site Name
+            </th>
+            <th>
+                Start Time
+            </th>
+            <th>
+                End Time
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Part
+            </th>
+            <th>
+                Capacity
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.siteName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.startTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.endTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.part)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Capacity)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.trainingID">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

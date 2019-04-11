@@ -1,0 +1,71 @@
+﻿@model StrongStart.Models.Training_Trainer
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<script type='text/javascript'>
+    window.onload = function () {
+        document.getElementById("divStatus").style.display = 'none';
+    }
+
+    function toggleDivDisplay(e) {
+        if (e == 1) {
+            document.getElementById("divStatus").style.display = 'block';
+        }
+        else {
+            document.getElementById("divStatus").style.display = 'none';
+        }
+    }
+</script>
+
+<h1>Edit</h1>
+
+<h4>Training_Trainer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="trainerID" class="control-label"></label>
+                <select asp-for="trainerID" class="form-control" asp-items="ViewBag.trainerID"></select>
+                <span asp-validation-for="trainerID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="trainingID" class="control-label"></label>
+                <input asp-for="trainingID" class="form-control" value="@ViewBag.trainingID" disabled>
+                <span asp-validation-for="trainingID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="hasKit" class="control-label"></label>
+                <select asp-for="hasKit" class="form-control" asp-items="Html.GetEnumSelectList<YesNO>()"></select>
+                <span asp-validation-for="hasKit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="becomeTrainer" class="control-label"></label>
+                <select asp-for="becomeTrainer" class="form-control" onchange="toggleDivDisplay(this.value)" asp-items="Html.GetEnumSelectList<YesNO>()"></select>
+                <span asp-validation-for="becomeTrainer" class="text-danger"></span>
+            </div>
+            <div class="form-group" id="divStatus">
+                <label asp-for="traineeStatus" class="control-label"></label>
+                <select asp-for="traineeStatus" class="form-control" asp-items="Html.GetEnumSelectList<Status>()"></select>
+                <span asp-validation-for="traineeStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="driveDistance" class="control-label"></label>
+                <input asp-for="driveDistance" class="form-control" />
+                <span asp-validation-for="driveDistance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" asp-route-trainingID="@ViewBag.trainingID" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-route-id="@ViewBag.trainingID">Back to List</a>
+</div>
+
